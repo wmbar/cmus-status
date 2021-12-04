@@ -1,16 +1,13 @@
-// Standard library imports
-
-
 // External imports
-use mpris::PlayerFinder;
+use mpris::{PlayerFinder, Player, Metadata};
+
 
 fn main() {
-    let player = PlayerFinder::new().expect("Error connecting to dbus")
+    let player: Player = PlayerFinder::new().expect("Error connecting to dbus")
                                     .find_active().expect("Not playing");
 
-    let metadata = player.get_metadata()
+    let metadata: Metadata = player.get_metadata()
         .expect("Unable to get player metadata");
 
-    println!("{:#?}", metadata);
-
+    println!("{:#?} - {:#?}", metadata.title(), metadata.artists())
 }
